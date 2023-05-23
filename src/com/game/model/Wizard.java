@@ -1,13 +1,10 @@
-package com.game;
+package com.game.model;
+
+import java.util.Random;
 
 public class Wizard {
-    private int life;
-    private int position;
-
-    public Wizard(int life, int position) {
-        this.life = life;
-        this.position = position;
-    }
+    private int life = initLife();
+    private int position = 2;
 
     public int getLife() {
         return life;
@@ -23,6 +20,10 @@ public class Wizard {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    private int initLife() {
+        return new Random().nextInt(6) + 1 + 3;
     }
 
     @Override
