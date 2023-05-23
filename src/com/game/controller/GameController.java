@@ -1,10 +1,9 @@
 package com.game.controller;
 
-import com.game.model.Warrior;
-import com.game.model.Wizard;
+import com.game.controller.exception.UnknownResultException;
+import com.game.model.GameCharacter;
 import com.game.view.Printer;
 
-import java.util.Optional;
 import java.util.Random;
 
 import static com.game.view.Printer.FIELD_EMPTY;
@@ -14,29 +13,29 @@ import static com.game.view.Printer.FIELD_WIZARD;
 
 public class GameController {
     private final Random random = new Random();
-    private final Warrior warrior;
-    private final Wizard wizard;
+    private final GameCharacter warrior;
+    private final GameCharacter wizard;
 
     private final Printer printer;
     private String[] board = new String[]{FIELD_WARRIOR, FIELD_EMPTY, FIELD_WIZARD};
 
-    public GameController(Warrior warrior, Wizard wizard, Printer printer) {
+    public GameController(GameCharacter warrior, GameCharacter wizard, Printer printer) {
         this.warrior = warrior;
         this.wizard = wizard;
         this.printer = printer;
         printer.printPosition(board, warrior, wizard);
     }
 
-    public void runGame() {
+    public void runGame() throws UnknownResultException {
         while (warrior.getLife() > 0 && wizard.getLife() > 0) {
             iterateNextRound();
         }
         if (warrior.getLife() <= 0 && wizard.getLife() <= 0) {
-            printer.printResult(Optional.empty());
+            throw new UnknownResultException();
         } else if (warrior.getLife() <= 0) {
-            printer.printResult(Optional.of("Varázsló"));
+            printer.printResult("Varázsló");
         } else {
-            printer.printResult(Optional.of("Harcos"));
+            printer.printResult("Harcos");
         }
     }
 
