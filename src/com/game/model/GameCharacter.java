@@ -1,33 +1,16 @@
 package com.game.model;
 
-import java.util.Random;
+public interface GameCharacter {
 
-public class GameCharacter {
-    private int life;
-    private int position;
+    int getLife();
 
-    public GameCharacter(int position) {
-        this.life = initLife();
-        this.position = position;
-    }
+    void setLife(int life);
 
-    public int getLife() {
-        return life;
-    }
+    int getPosition();
 
-    public void setLife(int life) {
-        this.life = life;
-    }
+    void setPosition(int position);
 
-    public int getPosition() {
-        return position;
-    }
+    String getStatus();
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    private int initLife() {
-        return new Random().nextInt(6) + 1 + 3;
-    }
+    String getType();
 }
